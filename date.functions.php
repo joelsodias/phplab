@@ -12,14 +12,14 @@ define("_SEGUNDO", _MINUTO/60);
 How to determine whether a year is a leap year
 To determine whether a year is a leap year, follow these steps:
 
-1. Se o ano é divisível por 4, siga proxima etapa, senão, não é bisexto
-2. Se o ano é divisível por 100, siga proxima etapa, senão, o ano é bisexto
-3. Se o ano é divisivel por 400, ele é bisexto, senão, o ano não é bisexto.
+1. Se o ano é divisível por 4, siga proxima etapa, senão, não é bissexto
+2. Se o ano é divisível por 100, siga proxima etapa, senão, o ano é bissexto
+3. Se o ano é divisivel por 400, ele é bissexto, senão, o ano não é bissexto.
 
 ref:
 https://docs.microsoft.com/en-us/office/troubleshoot/excel/determine-a-leap-year
 */ 
-function ano_bisexto($ano) {
+function ano_bissexto($ano) {
     $result=false;
     if($ano % 4 === 0) {
       if($ano % 100 === 0) {
@@ -29,14 +29,14 @@ function ano_bisexto($ano) {
     return $result;
 }
 
-function ano_bisexto_fast($ano) {
+function ano_bissexto_fast($ano) {
     return (!($ano % 4) && (($ano % 100) || (!($ano % 100) && !($ano % 400))));
 }
 
-function bisexto_entre($ano1, $ano2) {
+function bissexto_entre($ano1, $ano2) {
     $cont = 0;
     for ($a = $ano1; $a <= $ano2; $a++ ) {
-        $cont += (ano_bisexto_fast($a)) ? 1 : 0;
+        $cont += (ano_bissexto_fast($a)) ? 1 : 0;
     }
     return $cont;
 }
@@ -47,7 +47,7 @@ function dias_mes($mes, $ano = 0) {
     throw new Exception('Erro: Mês inválido.');  
   }   
 
-  return ($mes === 2) ? 28 + ((ano_bisexto_fast($ano) && ($ano > 0)) ? 1 : 0) : ((in_array($mes, array(1,3,5,7,8,10,12))) ? 31 : 30 );
+  return ($mes === 2) ? 28 + ((ano_bissexto_fast($ano) && ($ano > 0)) ? 1 : 0) : ((in_array($mes, array(1,3,5,7,8,10,12))) ? 31 : 30 );
           
 }
 
@@ -58,7 +58,7 @@ function data_serial($ano,$mes,$dia) {
      echo " dias_mes($i,$ano) = " . dias_mes($i,$ano) . "\n"; 
      $serial += dias_mes($i,$ano);  
   }
-  return $serial + bisexto_entre(_BASE_YEAR, $ano);
+  return $serial + bissexto_entre(_BASE_YEAR, $ano);
 }
 
 function data($ano,$mes,$dia) {
@@ -72,27 +72,27 @@ function diff_datas($d1,$d2) {
 
 
 /*
-echo "----- ano bisexto \n";
-var_dump(ano_bisexto(1900));
-var_dump(ano_bisexto(1991));
-var_dump(ano_bisexto(1992));
-var_dump(ano_bisexto(2000));
-echo "-----  ano bisexto fast \n";
-var_dump(ano_bisexto_fast(1900));
-var_dump(ano_bisexto_fast(1991));
-var_dump(ano_bisexto_fast(1992));
-var_dump(ano_bisexto_fast(2000));
-echo "-----  ano bisexto entre \n";
-var_dump(bisexto_entre(1992,1996));
+echo "----- ano bissexto \n";
+var_dump(ano_bissexto(1900));
+var_dump(ano_bissexto(1991));
+var_dump(ano_bissexto(1992));
+var_dump(ano_bissexto(2000));
+echo "-----  ano bissexto fast \n";
+var_dump(ano_bissexto_fast(1900));
+var_dump(ano_bissexto_fast(1991));
+var_dump(ano_bissexto_fast(1992));
+var_dump(ano_bissexto_fast(2000));
+echo "-----  ano bissexto entre \n";
+var_dump(bissexto_entre(1992,1996));
 echo "-----  dias_mes \n";
 var_dump(dias_mes(2));
 var_dump(dias_mes(2,1996));
 var_dump(dias_mes(2,1991));
 */
 
-echo "-----  bisexto \n";
+echo "-----  bissexto \n";
 echo "2020";
-var_dump(ano_bisexto(2020));
+var_dump(ano_bissexto(2020));
 echo "-----  data serial \n";
 var_dump(data_serial(2020,1,1));
 var_dump(data_serial(2020,3,1));
